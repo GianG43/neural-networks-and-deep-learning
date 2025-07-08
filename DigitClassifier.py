@@ -9,7 +9,7 @@ class DigitClassifier:
     def __init__(self, sizes):
         self.sizes = sizes
         self.biases = [np.random.randn(y, 1) for y in sizes[1:]]
-        self.weights = [np.random.randn(y, x) for x, y in zip(sizes[:-1])]
+        self.weights = [np.random.randn(y, x) for x, y in zip(sizes[:-1], sizes[1:])]
 
     def feedforward(self, a):
         for b, w in zip(self.biases, self.weights):
@@ -74,4 +74,8 @@ class DigitClassifier:
     def cost_derivative(self, output_activations, y):
         return output_activations - y
 
-    
+if __name__ == "__main__":
+    # Create a network with 784 input, 30 hidden, and 10 output neurons
+    net = DigitClassifier([784, 30, 10])
+    # Train the network using SGD
+    net.SDG(training_data, 30, 10, 3.0, test_data=test_data)

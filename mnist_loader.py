@@ -7,6 +7,7 @@ structures that are returned, see the doc strings for ``load_data``
 and ``load_data_wrapper``.  In practice, ``load_data_wrapper`` is the
 function usually called by our neural network code.
 """
+import os
 
 #### Libraries
 # Standard library
@@ -39,8 +40,9 @@ def load_data():
     That's done in the wrapper function ``load_data_wrapper()``, see
     below.
     """
-    f = gzip.open('mnist.pkl.gz', 'rb')
-    training_data, validation_data, test_data = pickle.load(f)
+    path = os.path.join(os.path.dirname(__file__), 'mnist.pkl.gz')
+    f = gzip.open(path, 'rb')
+    training_data, validation_data, test_data = pickle.load(f, encoding='latin1')
     f.close()
     return (training_data, validation_data, test_data)
 
